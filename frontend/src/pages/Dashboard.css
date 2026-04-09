@@ -1,0 +1,216 @@
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dashboard-range {
+  width: 160px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.kpi-card.clickable {
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.kpi-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+.kpi-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+.kpi-value {
+  margin-top: var(--space-2);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.kpi-meta {
+  margin-top: var(--space-2);
+  font-size: 13px;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.card-title {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.card-subtitle {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.chart-box {
+  height: 260px;
+}
+
+.transactions-card .card-body {
+  padding-top: var(--space-4);
+}
+
+.tx-controls {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.tx-search {
+  width: 260px;
+}
+
+.tx-status {
+  width: 160px;
+}
+
+.tx-table-wrap {
+  overflow: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.tx-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-surface);
+}
+
+.tx-table th,
+.tx-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 14px;
+}
+
+.tx-table th {
+  position: sticky;
+  top: 0;
+  background: var(--color-surface-2);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+  z-index: 1;
+}
+
+.tx-table tr:hover td {
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.tx-table tr:last-child td {
+  border-bottom: none;
+}
+
+.right {
+  text-align: right;
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: capitalize;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+
+.status-pending { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.25); }
+.status-processing { background: rgba(37, 99, 235, 0.12); border-color: rgba(37, 99, 235, 0.25); }
+.status-shipped { background: rgba(100, 116, 139, 0.12); border-color: rgba(100, 116, 139, 0.25); }
+.status-delivered { background: rgba(34, 197, 94, 0.12); border-color: rgba(34, 197, 94, 0.25); }
+.status-cancelled { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.25); }
+
+.tx-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+  gap: var(--space-4);
+}
+
+.tx-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tx-page {
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.empty-state {
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.06), rgba(255, 255, 255, 0));
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.empty-subtitle {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .tx-controls {
+    flex-wrap: wrap;
+  }
+  .tx-search,
+  .tx-status {
+    width: 100%;
+  }
+}

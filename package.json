@@ -1,0 +1,23 @@
+{
+  "name": "fullstack-demo",
+  "version": "1.0.0",
+  "description": "One-command setup for React Vite + Flask backend",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install concurrently kill-port",
+    "clean:ports": "npx kill-port 5001 5173 || true",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && python3 -m venv venv && ./venv/bin/pip install -r requirements.txt",
+    "db:setup": "cd backend && ./venv/bin/python init_db.py && ./venv/bin/python seed_db.py",
+    "setup": "npm run clean:ports && npm run install:frontend && npm run install:backend && npm run db:setup",
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && ./venv/bin/python app.py",
+    "start": "npm run setup && npx concurrently --kill-others -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run backend\" \"npm run frontend\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "kill-port": "^2.0.1"
+  }
+}
