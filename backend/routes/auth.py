@@ -22,8 +22,11 @@ def _get_user_with_accessible_branches(conn, user_row: dict) -> dict:
     return user_row
 
 
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST', 'OPTIONS'])
 def login():
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200
+
     data = request.get_json() or {}
     username = (data.get('username') or '').strip().lower()
     password = (data.get('password') or '').strip()

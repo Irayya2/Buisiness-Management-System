@@ -3,11 +3,11 @@ from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
-from flask_cors import CORS
 from config import Config
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
     
     @app.route("/")
     def home():
@@ -16,9 +16,6 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = Config.JWT_SECRET_KEY
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = Config.JWT_ACCESS_TOKEN_EXPIRES
     app.config['DEBUG'] = Config.DEBUG
-
-    # CORS
-    CORS(app, origins=Config.CORS_ORIGINS, supports_credentials=True)
 
     # JWT
     JWTManager(app)
