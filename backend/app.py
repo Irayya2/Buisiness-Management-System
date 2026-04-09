@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
@@ -7,8 +7,36 @@ from config import Config
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-    
+
+    # ── CORS ─────────────────────────────────────────────────────────────────
+    # Allow origins from CORS_ORIGINS env-var (comma-separated).
+    # supports_credentials=True lets the browser send cookies / Authorization.
+    CORS(
+        app,
+        origins=Config.CORS_ORIGINS,
+        supports_credentials=True,
+        allow_headers=['Content-Type', 'Authorization'],
+        methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    )
+
+    # Safety-net: guarantee CORS headers appear even on error responses
+    @app.after_request
+    def add_cors_headers(response):
+        origin = None
+        from flask import request as req
+        req_origin = req.headers.get('Origin', '')
+        # Check if request origin matches any allowed origin
+        for allowed in Config.CORS_ORIGINS:
+            if allowed == '*' or req_origin == allowed:
+                origin = req_origin
+                break
+        if origin:
+            response.headers['Access-Control-Allow-Origin'] = origin
+            response.headers['Access-Control-Allow-Credentials'] = 'true'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+            response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+        return response
+
     @app.route("/")
     def home():
         return "Backend is running 🚀"
