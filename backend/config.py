@@ -16,9 +16,10 @@ class Config:
     )
 
     # CORS
-    CORS_ORIGINS = os.getenv(
-        'CORS_ORIGINS',
-        'http://localhost:5173,http://localhost:3000'
-    ).split(',')
+    # Set CORS_ORIGINS env var to "*" for open access, or a comma-separated
+    # list of allowed origins (e.g. "https://myapp.up.railway.app").
+    # Defaults to localhost for local development.
+    _cors_env = os.getenv('CORS_ORIGINS', 'http://localhost:5173,http://localhost:3000')
+    CORS_ORIGINS = '*' if _cors_env.strip() == '*' else [o.strip() for o in _cors_env.split(',')]
 
     DEBUG = os.getenv('FLASK_DEBUG', 'True') == 'True'
