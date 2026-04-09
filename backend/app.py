@@ -7,6 +7,11 @@ from config import Config
 
 def create_app():
     app = Flask(__name__)
+    
+    @app.route("/")
+    def home():
+        return "Backend is running 🚀"
+        
     app.config['JWT_SECRET_KEY'] = Config.JWT_SECRET_KEY
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = Config.JWT_ACCESS_TOKEN_EXPIRES
     app.config['DEBUG'] = Config.DEBUG
